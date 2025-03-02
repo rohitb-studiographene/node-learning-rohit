@@ -1,14 +1,14 @@
-const app = require("express");
+const express = require("express");
+const bodyParser = require("body-parser");
+const todoRoutes = require("./routes/todoRoutes");
 
-app.use("/", (req, res) => {
-  res.send("This is home page");
-});
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-app.use("/users", (req, res) => {
-  res.send("This is users page");
-});
+app.use(bodyParser.json());
 
-// Start server
-app.listen(3000, () => {
-  console.log(`Server running on http://localhost:3000`);
+app.use("/api/todos", todoRoutes);
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users Page</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
+</head>
+<body>
+    <h1>Users Page</h1>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/users">Users</a>
+        <a href="/users/add-user">Add User</a>
+    </nav>
+    <div class="content">
+        <p>This is the users page content.</p>
+        <ul id="usersList"></ul>
+    </div>
+    <script>
+        // Fetch users from the server and display in HTML
+        fetch("/users/users-list")
+            .then(response => response.json())
+            .then(users => {
+                const userList = document.getElementById("usersList");
+                users.forEach(user => {
+                    const li = document.createElement("li");
+                    li.innerHTML = `${user.username}`;
+                    userList.appendChild(li);
+                });
+            })
+            .catch(error => console.error("Error fetching users:", error));
+    </script>
+</body>
+</html>
